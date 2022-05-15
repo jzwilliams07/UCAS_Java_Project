@@ -33,7 +33,32 @@ DXYArea.csv
 
 该模块主要用于读取.csv文件中的新冠疫情数据：
 
+借助依赖csvreader进行csv文件的读取
 
+```Moven
+<dependency>       			  
+	<groupId>net.sourceforge.javacsv</groupId>
+	<artifactId>javacsv</artifactId>
+	<version>2.0</version>
+</dependency>
+```
+
+```mermaid
+classDiagram
+class Reader{
+	String filepath
+	String filename
+	Csvreader csvreader
+	DailyInfo[] dailyInfo
+	Map~Time, Interge~ timeToIndex
+	
+	Reader(String filepath, String filename)
+	Redaer(String filepath)
+	
+	read() DailyInfo[]
+	match()
+}
+```
 
 
 
@@ -43,13 +68,69 @@ DXYArea.csv
 
 该模块主要用于存储读取的数据
 
+采取一次读完.csv文件的方法，将所需的数据一次性存储以供GUI查找
 
+设计class用于存储数据信息及查询信息
+
+```mermaid
+classDiagram
+dataReader *-- DailyInfo
+DailyInfo *-- Time
+DailyInfo *-- Region
+DailyInfo *-- Info
+
+class dataReader{
+	DailyInfo[] dailyInfo
+	Map~Time, Interge~ timeToIndex
+	
+	dataReader(DailyInfo dailyInfo, Map~Time, Interge~ timeToIndex)
+	getByTime(Time time) Map~Region~
+	getByRegion(Region Region) Map~Time~
+}
+
+class DailyInfo{
+  	Time time
+  	Map~Region, Info~ InfobyRegion
+}
+
+class Time{
+	int year
+	int month
+	int day
+	int hour
+	
+	Time(int year, int month, int day, int hour)
+	
+	toString(): String 
+	equal()
+}
+
+class Region{
+	String country
+	String province
+	
+	Region(String country, String province)
+	
+	toString()
+	equal()
+}
+
+class Info{
+	int confirmedCount
+	int curedCount
+	int deadCount
+	int suspectedCount
+}
+
+```
 
 
 
 ## GUI
 
 该模块主要用于展示读取的数据
+
+使用SwingX与JfreeChart依赖编写界面
 
 
 
