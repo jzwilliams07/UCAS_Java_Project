@@ -136,10 +136,43 @@ class Info{
 
 ### 图表一
 
-输入日期，显示当日中国各省份的新冠疫情确证病例
+输入日期，显示当日中国各省份的新冠疫情确证病例，采用柱状图，显式在此时间各省份新冠病例的确证数量
 
 
 
 ### 图表二
 
-输入具体地区，显示该地区的新冠疫情的确证病例、治愈病例、死亡病例随时间的变化情况
+输入具体地区，采用曲线图，显示该地区的新冠疫情的确证病例、治愈病例、死亡病例随时间的变化情况
+
+
+
+```mermaid
+classDiagram
+
+class LineChart{
+	createDataset(List~Info~, List~Time~)
+	createChart(XYDataset dataset)
+	initUI()
+}
+
+class BarChart{
+	createDataset(Map~Region, Info~)
+	createChart(CategoryDataset dataset)
+	initUI()
+}
+
+class MyFrame {
+	JPanel contentPanel
+	JButton buttonByTime
+	JButton buttonByRegion
+	CardLayout cardLatout
+	
+	
+}
+
+Jframe <|-- LineChart
+Jframe <|-- BarChart
+Jframe <|-- MyFrame
+
+```
+
