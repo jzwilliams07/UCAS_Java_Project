@@ -1,5 +1,7 @@
 package GUI;
 
+import dataContainer.Info;
+import dataContainer.Region;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -9,6 +11,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 
 /**
  * @Auther:
@@ -49,12 +52,37 @@ public class BarChart extends JFrame{
         return dataset;
     }
 
+    public CategoryDataset createDatasetByRegion(Map<Region, Info> InfoByRegion) {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        for (Region r : InfoByRegion.keySet()) {
+            dataset.setValue(InfoByRegion.get(r).getSuspectedCount(), "SuspectedCount", r.toString());
+        }
+
+        return dataset;
+    }
+
     public JFreeChart createChart(CategoryDataset dataset) {
 
         JFreeChart barChart = ChartFactory.createBarChart(
                 "Olympic gold medals in London",
                 "Country",
                 "Gold medals",
+                dataset,
+                PlotOrientation.VERTICAL,
+                false,
+                true,
+                false
+        );
+        return barChart;
+    }
+
+    public JFreeChart createChartByRegion(CategoryDataset dataset) {
+
+        JFreeChart barChart = ChartFactory.createBarChart(
+                "SuspectedCount in each province",
+                "Country province",
+                "SuspectedCount",
                 dataset,
                 PlotOrientation.VERTICAL,
                 false,
