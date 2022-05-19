@@ -1,6 +1,9 @@
 package readIO;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @Auther:
@@ -10,5 +13,17 @@ import org.junit.Test;
 
 public class ReaderTest {
 
+    Reader reader;
+
+    @Before
+    public void setUp() {
+        reader = new Reader("Resources/DXYArea.csv");
+    }
+
+    @Test
+    public void testReader() {
+        assertEquals("DXYArea.csv", reader.getFileName());
+        assertEquals("Resources/", reader.getFilePath());
+    }
 
 }

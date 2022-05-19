@@ -30,7 +30,14 @@ public class DailyInfo {
     }
 
     public Info getInfo(Region region) {
+        if (!InfoByRegion.containsKey(region)) {
+            return new Info(0, 0, 0, 0);
+        }
         return InfoByRegion.get(region);
+    }
+
+    public void setRegion(Region region, Info info) {
+        InfoByRegion.put(region, info);
     }
 
     public static void main(String[] args) {

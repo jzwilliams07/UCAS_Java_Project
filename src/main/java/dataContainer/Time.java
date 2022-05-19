@@ -32,6 +32,15 @@ public class Time {
      * @param time 20xx/xx/xx xx:xx:xx
      */
     public Time(String time) {
+//        year = readYear(time);
+//        month = readMonth(time);
+//        day = readDay(time);
+//        hour = readHour(time);
+        this();
+        this.setTime(time);
+    }
+
+    public void setTime (String time) {
         year = readYear(time);
         month = readMonth(time);
         day = readDay(time);
@@ -93,7 +102,7 @@ public class Time {
     @Override
     public boolean equals(Object o) {
         if (o instanceof Time t) {
-            return this.year == t.year && this.month == t.month && this.day == t.day && this.hour == t.hour;
+            return this.year == t.year && this.month == t.month && this.day == t.day;
         }
         return false;
     }
@@ -108,7 +117,6 @@ public class Time {
         h = 31 * h + String.valueOf(year).hashCode();
         h = 31 * h + String.valueOf(month).hashCode();
         h = 31 * h + String.valueOf(day).hashCode();
-        h = 31 * h + String.valueOf(hour).hashCode();
         return h;
     }
 

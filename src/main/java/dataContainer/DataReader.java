@@ -1,8 +1,6 @@
 package dataContainer;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Auther:
@@ -38,6 +36,16 @@ public class DataReader {
         return times;
     }
 
+    public List<Time> getTime() {
+        List<Time> times = new ArrayList<>();
+
+        for (DailyInfo info : dailyInfo) {
+            times.add(info.getTime());
+        }
+
+        return times;
+    }
+
     public List<Info> getInfoByRegion(Region region, List<Time> times) {
         List<Info> infos = new ArrayList<>();
         for (int i = 0; i < times.size(); ++i) {
@@ -52,6 +60,30 @@ public class DataReader {
         int index = timeToIndex.get(time);
         return dailyInfo.get(index).getInfoByRegion();
     }
+
+    public Set<Region> getRegion(String strStartTime, String strEndTime) {
+        Time startTime = new Time(strStartTime);
+        Time endTime = new Time(strEndTime);
+        int startIndex = timeToIndex.get(startTime);
+        int endIndex = timeToIndex.get(endTime);
+
+        Set<Region> regions = new HashSet<>();
+        for (int i = startIndex; i <= endIndex; ++i) {
+            regions.addAll(dailyInfo.get(i).getInfoByRegion().keySet());
+        }
+
+        return regions;
+    }
+
+    public Set<Region> getRegion() {
+        Set<Region> regions = new HashSet<>();
+        for (DailyInfo info : dailyInfo) {
+            regions.addAll(info.getInfoByRegion().keySet());
+        }
+
+        return regions;
+    }
+
 
     public static void main(String[] args) {
     }

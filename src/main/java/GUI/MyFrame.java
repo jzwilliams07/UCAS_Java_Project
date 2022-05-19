@@ -1,10 +1,18 @@
 package GUI;
 
+import dataContainer.DataReader;
+import dataContainer.Info;
+import dataContainer.Region;
+import dataContainer.Time;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @Auther:
@@ -19,6 +27,11 @@ public class MyFrame extends JFrame {
     private JButton buttonByTime;
     private JButton buttonByRegion;
 
+    private PageByTime page1;
+    private PageByRegion page2;
+
+    private DataReader dataReader;
+
     public static void main(String[] args) throws InterruptedException, InvocationTargetException {
         EventQueue.invokeAndWait(new Runnable() {
             @Override
@@ -31,6 +44,13 @@ public class MyFrame extends JFrame {
                 }
             }
         });
+    }
+
+    public MyFrame(DataReader dataReader) {
+        this();
+        setDataReader(dataReader);
+        setPage1(dataReader.getTime());
+        setPage2(dataReader.getRegion());
     }
 
     public MyFrame() {
@@ -49,8 +69,8 @@ public class MyFrame extends JFrame {
         contentPane.add(panel);
         panel.setLayout(cardLayout);
 
-        PageByTime page1 = new PageByTime();
-        PageByRegion page2 = new PageByRegion();
+        page1 = new PageByTime();
+        page2 = new PageByRegion();
         panel.add(page1, "page1");
         panel.add(page2, "page2");
 
@@ -59,6 +79,9 @@ public class MyFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(panel, "page1");
+                if (dataReader != null) {
+                    setPage1(dataReader.getTime());
+                }
             }
         });
         buttonByTime.setBounds(0, 0, 480, 40);
@@ -69,9 +92,29 @@ public class MyFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(panel, "page2");
+                if (dataReader != null) {
+                    setPage2(dataReader.getRegion());
+                }
             }
         });
         buttonByRegion.setBounds(480, 0, 480, 40);
         contentPane.add(buttonByRegion);
+    }
+
+    public void setDataReader(DataReader dataReader) {
+        this.dataReader = dataReader;
+    }
+
+    public void setPage1(List<Time> times) {
+        page1.setDataReader(dataReader);
+        page1.setYearBox(times);
+        page1.setMonthBox(times);
+        page1.setDayBox(times);
+    }
+
+    public void setPage2(Set<Region> regions) {
+        page2.setDataReader(dataReader);
+        page2.setCountryBox(regions);
+        page2.setProvinceBox(regions);
     }
 }

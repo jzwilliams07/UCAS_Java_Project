@@ -104,16 +104,16 @@ public class LineChart extends JFrame {
 
         for (int i = 0; i < times.size(); ++i) {
 
-            confirmedCountByTime.add(new Hour(times.get(i).getDay(), times.get(i).getMonth(),
-                            times.get(i).getYear(), times.get(i).getHour()),
+            confirmedCountByTime.add(new Day(times.get(i).getDay(), times.get(i).getMonth(),
+                            times.get(i).getYear()),
                             infos.get(i).getConfirmedCount());
 
-            curedCountByTime.add(new Hour(times.get(i).getDay(), times.get(i).getMonth(),
-                            times.get(i).getYear(), times.get(i).getHour()),
+            curedCountByTime.add(new Day(times.get(i).getDay(), times.get(i).getMonth(),
+                            times.get(i).getYear()),
                             infos.get(i).getCuredCount());
 
-            deadCountByTime.add(new Hour(times.get(i).getDay(), times.get(i).getMonth(),
-                            times.get(i).getYear(), times.get(i).getHour()),
+            deadCountByTime.add(new Day(times.get(i).getDay(), times.get(i).getMonth(),
+                            times.get(i).getYear()),
                             infos.get(i).getDeadCount());
         }
         dataset.addSeries(confirmedCountByTime);

@@ -51,6 +51,14 @@ public class Region {
         return province;
     }
 
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
     public static void main(String[] args) {
     }
 }
