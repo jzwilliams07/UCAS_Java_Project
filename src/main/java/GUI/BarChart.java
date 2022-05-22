@@ -5,13 +5,15 @@ import dataContainer.Region;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.StandardChartTheme;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Map;
+import java.util.*;
+import java.util.List;
 
 /**
  * @Auther:
@@ -55,14 +57,39 @@ public class BarChart extends JFrame{
     public CategoryDataset createDatasetByRegion(Map<Region, Info> InfoByRegion) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        for (Region r : InfoByRegion.keySet()) {
-            dataset.setValue(InfoByRegion.get(r).getSuspectedCount(), "SuspectedCount", r.toString());
+        List<Map.Entry<Region, Info>> list = new ArrayList<>(InfoByRegion.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<Region, Info>>() {
+            @Override
+            public int compare(Map.Entry<Region, Info> o1, Map.Entry<Region, Info> o2) {
+                return Integer.compare(o2.getValue().getSuspectedCount(), o1.getValue().getSuspectedCount());
+            }
+        });
+
+        int i = 0;
+        for (Map.Entry<Region, Info> mapping : list) {
+            if (i == 5) {
+                break;
+            }
+            dataset.setValue(mapping.getValue().getSuspectedCount(),
+                    "SuspectedCount", mapping.getKey().getProvince());
+            i++;
         }
 
         return dataset;
     }
 
     public JFreeChart createChart(CategoryDataset dataset) {
+        // 设置字体
+        StandardChartTheme mChartTheme = new StandardChartTheme("CN");
+        //设置标题字体
+        mChartTheme.setExtraLargeFont(new Font("黑体", Font.BOLD, 20));
+        //设置轴向字体
+        mChartTheme.setLargeFont(new Font("宋体", Font.BOLD, 15));
+        //设置图例字体
+        mChartTheme.setRegularFont(new Font("宋体", Font.BOLD, 15));
+        //应用主题样式
+        ChartFactory.setChartTheme(mChartTheme);
+
 
         JFreeChart barChart = ChartFactory.createBarChart(
                 "Olympic gold medals in London",
@@ -74,6 +101,7 @@ public class BarChart extends JFrame{
                 true,
                 false
         );
+
         return barChart;
     }
 

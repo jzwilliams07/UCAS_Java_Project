@@ -51,7 +51,12 @@ public class DataReader {
         for (int i = 0; i < times.size(); ++i) {
             int index = timeToIndex.get(times.get(i));
             DailyInfo tmp = dailyInfo.get(i);
-            infos.add(tmp.getInfo(region));
+            if (tmp.getInfo(region) == null) {
+                infos.add(infos.get(infos.size() - 1));
+            }
+            else {
+                infos.add(tmp.getInfo(region));
+            }
         }
         return infos;
     }

@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException, InvocationTargetException {
         Reader reader = new Reader("Resources/DXYArea.csv");
         try {
-            reader.read(10);
+            reader.read(200);
         }
         catch (IOException e) {
             System.out.println(e);

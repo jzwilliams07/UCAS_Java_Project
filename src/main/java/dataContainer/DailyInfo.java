@@ -31,7 +31,7 @@ public class DailyInfo {
 
     public Info getInfo(Region region) {
         if (!InfoByRegion.containsKey(region)) {
-            return new Info(0, 0, 0, 0);
+            return null;
         }
         return InfoByRegion.get(region);
     }
