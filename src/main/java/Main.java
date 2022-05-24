@@ -14,7 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, InvocationTargetException {
-        Reader reader = new Reader("Resources/DXYArea.csv");
+        Reader reader = new Reader("src/main/resources/DXYArea.csv");
         try {
             reader.read(200);
         }
