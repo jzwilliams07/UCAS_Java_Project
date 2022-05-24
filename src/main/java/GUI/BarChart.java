@@ -101,22 +101,23 @@ public class BarChart extends JFrame{
                 true,
                 false
         );
-
+        barChart.setBackgroundPaint(new Color(255, 235, 205));
         return barChart;
     }
 
     public JFreeChart createChartByRegion(CategoryDataset dataset) {
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "SuspectedCount in each province",
-                "Country province",
-                "SuspectedCount",
+                "每日确诊人数最多的五个省份",
+                "省份",
+                "人数",
                 dataset,
                 PlotOrientation.VERTICAL,
                 false,
                 true,
                 false
         );
+        barChart.setBackgroundPaint(new Color(255, 235, 205));
         return barChart;
     }
 

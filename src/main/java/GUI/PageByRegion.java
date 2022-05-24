@@ -35,7 +35,7 @@ public class PageByRegion extends JPanel {
 
     public PageByRegion() {
         setLayout(null);
-        setBackground(new Color(25, 200, 30));
+        setBackground(new Color(240, 255, 240));
 
 
 //        LineChart xy = new LineChart();
@@ -54,10 +54,12 @@ public class PageByRegion extends JPanel {
         add(provinceBox);
 
         JTextField countryText = new JTextField("Country: ");
+        countryText.setBackground(new Color(240, 255, 240));
         countryText.setBounds(100, 100, 80, 20);
         add(countryText);
 
         JTextField provinceText = new JTextField("Province: ");
+        provinceText.setBackground(new Color(240, 255, 240));
         provinceText.setBounds(100, 140, 80, 20);
         add(provinceText);
 

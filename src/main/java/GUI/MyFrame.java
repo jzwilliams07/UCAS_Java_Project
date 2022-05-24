@@ -75,6 +75,9 @@ public class MyFrame extends JFrame {
         panel.add(page2, "page2");
 
         buttonByTime = new JButton("check by time");
+        buttonByTime.setBackground(new Color(255, 235, 205));
+        buttonByTime.setFocusPainted(false);
+        buttonByTime.setBorderPainted(false);
         buttonByTime.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -88,6 +91,9 @@ public class MyFrame extends JFrame {
         contentPane.add(buttonByTime);
 
         buttonByRegion = new JButton("check by Region");
+        buttonByRegion.setBackground(new Color(240, 255, 240));
+        buttonByRegion.setFocusPainted(false);
+        buttonByRegion.setBorderPainted(false);
         buttonByRegion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

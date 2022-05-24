@@ -44,7 +44,7 @@ public class PageByTime extends JPanel {
 
     public PageByTime() {
         setLayout(null);
-        setBackground(new Color(220, 25, 25));
+        setBackground(new Color(255, 235, 205));
 
 
 
@@ -76,14 +76,17 @@ public class PageByTime extends JPanel {
         add(dayBox);
 
         JTextField yearText = new JTextField("Year: ");
+        yearText.setBackground(new Color(255, 235, 205));
         yearText.setBounds(100, 60, 80, 20);
         add(yearText);
 
         JTextField monthText = new JTextField("Month: ");
+        monthText.setBackground(new Color(255, 235, 205));
         monthText.setBounds(100, 100, 80, 20);
         add(monthText);
 
         JTextField dayText = new JTextField("Day: ");
+        dayText.setBackground(new Color(255, 235, 205));
         dayText.setBounds(100, 140, 80, 20);
         add(dayText);
 

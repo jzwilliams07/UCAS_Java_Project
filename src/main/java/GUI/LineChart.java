@@ -4,11 +4,9 @@ import dataContainer.DailyInfo;
 import dataContainer.Info;
 import dataContainer.Region;
 import dataContainer.Time;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.ChartUtils;
-import org.jfree.chart.JFreeChart;
+import org.jfree.chart.*;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.Hour;
 import org.jfree.data.time.TimeSeries;
@@ -67,15 +65,17 @@ public class LineChart extends JFrame {
 
     public JFreeChart createChartByTime(XYDataset xyDataset) {
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-                "Time Graph",
-                "hour",
-                "number",
+                "该地区确诊人数、死亡人数、治愈人数随时间变化图",
+                "时间",
+                "人数",
                 xyDataset,
                 true,
                 false,
                 false
         );
-
+        LegendTitle legend = chart.getLegend();
+        legend.setBackgroundPaint(new Color(240, 255, 240));
+        chart.setBackgroundPaint(new Color(240, 255, 240));
         return chart;
     }
 
