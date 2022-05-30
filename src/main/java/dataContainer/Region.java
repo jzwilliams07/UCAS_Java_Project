@@ -1,11 +1,12 @@
 package dataContainer;
 
 import java.util.Objects;
-
+@SuppressWarnings({"all"})
 /**
  * @Auther:
  * @Date: 2022/5/18 16:45
- * @Description:
+ * @Description: 该类用于保存地区信息，
+ *               包括国家country，和省份province两个字符串属性，配合Info类使用，实现按地区查找疫情信息的需求
  */
 
 public class Region {
@@ -17,11 +18,22 @@ public class Region {
 
     }
 
+    /**
+     * Region类中的两个字符串变量 country, province 分别用于保存国家和省份信息
+     * @param country   国家
+     * @param province  省份
+     *
+     */
     public Region(String country, String province) {
         this.country = country;
         this.province = province;
     }
 
+    /**
+     * 重写了equals方法，country和province两个属性相同则两个Region对象相同
+     * @param o  传入的需要进行比较的另一个对象
+     * @return  若满足相等条件则返回true否则返回false
+     */
     @Override
     public boolean equals(Object o) {
         if (o instanceof Region r) {
@@ -42,7 +54,9 @@ public class Region {
     public String toString() {
         return country + province;
     }
-
+    /****************************************************************
+     * Getter function & Setter function
+     ***************************************************************/
     public String getCountry() {
         return country;
     }
