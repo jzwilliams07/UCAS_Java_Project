@@ -3,7 +3,7 @@ package readIO;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * @Auther:
@@ -24,6 +24,12 @@ public class ReaderTest {
     public void testReader() {
         assertEquals("DXYArea.csv", reader.getFileName());
         assertEquals("Resources/", reader.getFilePath());
+    }
+
+    @Test
+    public void testIsCsvFile() {
+        assertTrue(reader.isCsvFile("DXYArea.csv"));
+        assertFalse(reader.isCsvFile("DXYArea.txt"));
     }
 
 }

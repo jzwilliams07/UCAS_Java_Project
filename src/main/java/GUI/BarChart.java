@@ -18,46 +18,27 @@ import java.util.List;
 /**
  * @Auther:
  * @Date: 2022/5/16 15:07
- * @Description:
+ * @Description: 该类继承 JFrame，用于画出每日确诊人数最多的五个省份的柱状图，返回的是 JFreeChart 类
  */
 
 public class BarChart extends JFrame{
 
     public BarChart() {
-        initUI();
-    }
-
-    public void initUI() {
-        CategoryDataset dataset = createDataset();
-
-        JFreeChart chart = createChart(dataset);
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        chartPanel.setBackground(Color.white);
-        add(chartPanel);
-
-        pack();
-        setTitle("Bar chart");
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
 
-    public CategoryDataset createDataset() {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(46, "Gold medals", "USA");
-        dataset.setValue(38, "Gold medals", "China");
-        dataset.setValue(22, "Gold medals", "Russia");
-        dataset.setValue(13, "Gold medals", "South Korea");
-        dataset.setValue(11, "Gold medals", "Germany");
-
-        return dataset;
-    }
-
+    /**
+     * 根据每日确诊人数选取每日确诊人数最多的五个省份，生成画图的数据类 CategoryDataset
+     * @param InfoByRegion 该日的每个地区的确诊信息
+     * @return 返回用于画柱状图的数据 CategoryDataset
+     */
     public CategoryDataset createDatasetByRegion(Map<Region, Info> InfoByRegion) {
+        // 初始化一个空的dataset对象
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
+        // 使用Map的迭代器，将Map对象转化为List
         List<Map.Entry<Region, Info>> list = new ArrayList<>(InfoByRegion.entrySet());
+        // 将List对象排序，重写 compare() 方法决定排序的顺序，根据确诊人数的大小按从大到小排序
         Collections.sort(list, new Comparator<Map.Entry<Region, Info>>() {
             @Override
             public int compare(Map.Entry<Region, Info> o1, Map.Entry<Region, Info> o2) {
@@ -65,6 +46,7 @@ public class BarChart extends JFrame{
             }
         });
 
+        // 取每日确诊人数最多的五个省份添加进dataset
         int i = 0;
         for (Map.Entry<Region, Info> mapping : list) {
             if (i == 5) {
@@ -78,7 +60,14 @@ public class BarChart extends JFrame{
         return dataset;
     }
 
-    public JFreeChart createChart(CategoryDataset dataset) {
+
+    /**
+     * 根据传入的dataset画出柱状图
+     * @param dataset 含地区的每日确证人数
+     * @return JFrameChart 图表对象
+     */
+    public JFreeChart createChartByRegion(CategoryDataset dataset) {
+
         // 设置字体
         StandardChartTheme mChartTheme = new StandardChartTheme("CN");
         //设置标题字体
@@ -90,23 +79,7 @@ public class BarChart extends JFrame{
         //应用主题样式
         ChartFactory.setChartTheme(mChartTheme);
 
-
-        JFreeChart barChart = ChartFactory.createBarChart(
-                "Olympic gold medals in London",
-                "Country",
-                "Gold medals",
-                dataset,
-                PlotOrientation.VERTICAL,
-                false,
-                true,
-                false
-        );
-        barChart.setBackgroundPaint(new Color(255, 235, 205));
-        return barChart;
-    }
-
-    public JFreeChart createChartByRegion(CategoryDataset dataset) {
-
+        // 生成柱状图
         JFreeChart barChart = ChartFactory.createBarChart(
                 "每日确诊人数最多的五个省份",
                 "省份",
@@ -117,14 +90,12 @@ public class BarChart extends JFrame{
                 true,
                 false
         );
+        // 设置图表背景颜色
         barChart.setBackgroundPaint(new Color(255, 235, 205));
         return barChart;
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            BarChart ex = new BarChart();
-            ex.setVisible(true);
-        });
+
     }
 }

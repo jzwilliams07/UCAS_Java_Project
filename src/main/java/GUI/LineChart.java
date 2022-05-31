@@ -30,40 +30,27 @@ import java.util.Vector;
 public class LineChart extends JFrame {
 
     public LineChart() {
-        initUI();
+
     }
 
-    public void initUI() {
-        XYDataset dataset = createDateset();
-        JFreeChart chart = createChart(dataset);
-
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        chartPanel.setBackground(Color.white);
-        add(chartPanel);
-
-        pack();
-        setTitle("Line chart");
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    public JFreeChart createChart(XYDataset dataset) {
-        JFreeChart chart = ChartFactory.createXYLineChart(
-                "该地区新冠疫情确证病例、治愈病例、死亡病例随时间变化情况",
-                "时间",
-                "人数",
-                dataset,
-                PlotOrientation.VERTICAL,
-                true,
-                true,
-                false
-        );
-
-        return chart;
-    }
-
+    /**
+     * 根据数据集 xyDataset 画出确诊人数，死亡人数，治愈人数随时间的变化的曲线图
+     * @param xyDataset 数据集
+     * @return JFrameChart 曲线图
+     */
     public JFreeChart createChartByTime(XYDataset xyDataset) {
+        // 设置字体
+        StandardChartTheme mChartTheme = new StandardChartTheme("CN");
+        //设置标题字体
+        mChartTheme.setExtraLargeFont(new Font("黑体", Font.BOLD, 20));
+        //设置轴向字体
+        mChartTheme.setLargeFont(new Font("宋体", Font.BOLD, 15));
+        //设置图例字体
+        mChartTheme.setRegularFont(new Font("宋体", Font.BOLD, 15));
+        //应用主题样式
+        ChartFactory.setChartTheme(mChartTheme);
+
+        // 创建曲线图对象
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
                 "该地区确诊人数、死亡人数、治愈人数随时间变化图",
                 "时间",
@@ -73,35 +60,30 @@ public class LineChart extends JFrame {
                 false,
                 false
         );
+        // 图例
         LegendTitle legend = chart.getLegend();
+        // 设置曲线图背景颜色
         legend.setBackgroundPaint(new Color(240, 255, 240));
+        // 设置图表背景颜色
         chart.setBackgroundPaint(new Color(240, 255, 240));
         return chart;
     }
 
-
-    public XYDataset createDateset() {
-        XYSeries series1 = new XYSeries("test1");
-        series1.add(18,567);
-        series1.add(20,612);
-        series1.add(25, 800);
-        XYSeries series2 = new XYSeries("test2");
-        series2.add(18,530);
-        series2.add(20,660);
-        series2.add(25, 750);
-        XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(series1);
-        dataset.addSeries(series2);
-        return dataset;
-    }
-
+    /**
+     * 根据Time类型的List和infos类型的List生成带时间戳的数据集
+     * @param times 时间的列表
+     * @param infos 对应每个时间的疫情信息：确诊人数，死亡人数，治愈人数
+     * @return 带时间戳的数据集(横坐标为时间)
+     */
     public TimeSeriesCollection createDatasetByTime(List<Time> times, List<Info> infos) {
+        // 创建时间数据集空对象
         TimeSeriesCollection dataset = new TimeSeriesCollection();
-
+        // 依次创建数据集中的时间序列，因为需求是画三条折线图在同一折线图，所以同时需要三个序列
         TimeSeries confirmedCountByTime = new TimeSeries("confirmedCount");
         TimeSeries curedCountByTime = new TimeSeries("curedCount");
         TimeSeries deadCountByTime = new TimeSeries("deadCount");
 
+        // 分别给三个时间序列添加时间和数据
         for (int i = 0; i < times.size(); ++i) {
 
             confirmedCountByTime.add(new Day(times.get(i).getDay(), times.get(i).getMonth(),
@@ -116,6 +98,8 @@ public class LineChart extends JFrame {
                             times.get(i).getYear()),
                             infos.get(i).getDeadCount());
         }
+
+        // 将时间序列依次加入时间数据集
         dataset.addSeries(confirmedCountByTime);
         dataset.addSeries(curedCountByTime);
         dataset.addSeries(deadCountByTime);
@@ -125,9 +109,6 @@ public class LineChart extends JFrame {
 
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            LineChart ex = new LineChart();
-            ex.setVisible(true);
-        });
+
     }
 }
