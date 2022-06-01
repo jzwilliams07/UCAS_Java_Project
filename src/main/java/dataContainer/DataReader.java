@@ -119,7 +119,7 @@ public class DataReader {
 
     /**
      * 用于用户未指定日期，默认获取所有时间内存在疫情信息的Region
-     * @return
+     * @return 一个包含所有时间段内有疫情信息的Region对象的集合
      */
     public Set<Region> getRegion() {
         Set<Region> regions = new HashSet<>();

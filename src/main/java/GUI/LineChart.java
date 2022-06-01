@@ -24,7 +24,7 @@ import java.util.Vector;
 /**
  * @Auther:
  * @Date: 2022/5/16 11:13
- * @Description:
+ * @Description: 根据数据集画出确诊人数，死亡人数，治愈人数随时间的变化的曲线图
  */
 
 public class LineChart extends JFrame {

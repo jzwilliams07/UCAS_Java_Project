@@ -37,6 +37,14 @@ public class DailyInfo {
         return InfoByRegion;
     }
 
+    /**
+     * getInfo方法说明：
+     * 传入用户指定的所需查询的地区的对应的Region类对象region，
+     * 首先判断该region是否存在于按地区区别的疫情信息的hashmap中
+     * 不存在返回空，存在该地区则在InfoByRegion这个hashmap中取出该region对应的疫情信息
+     * @param region 用户指定的传入的所需查找的地区对应的Region类对象
+     * @return 不存在该地区则返回空，若能查找到则返回该地区对应的Info类对象
+     */
     public Info getInfo(Region region) {
         if (!InfoByRegion.containsKey(region)) {            //判断传入的region是否存在于InfoByRegion的hashmap中
             return null;                                    //不存在则返回空
